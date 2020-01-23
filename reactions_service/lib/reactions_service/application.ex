@@ -16,6 +16,9 @@ defmodule ReactionsService.Application do
       # {ReactionsService.Worker, arg},
     ]
 
+    # create the ETS table
+    :ets.new(:reactions_table, [:set, :public, :named_table])
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ReactionsService.Supervisor]
