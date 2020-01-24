@@ -5,8 +5,13 @@ defmodule ReactionsServiceWeb.ReactionController do
 
   action_fallback ReactionsServiceWeb.FallbackController
 
-
-  def save_reaction(conn, %{"action" => action, "content_id" => content_id, "reaction_type" => reaction_type, "type" => _type, "user_id" => user_id}) do
+  def save_reaction(conn, %{
+        "action" => action,
+        "content_id" => content_id,
+        "reaction_type" => reaction_type,
+        "type" => _type,
+        "user_id" => user_id
+      }) do
     # check if the content has exisiting reactions
     case ets_lookup(content_id) do
       :none ->
@@ -23,7 +28,10 @@ defmodule ReactionsServiceWeb.ReactionController do
               if Enum.member?(users, user_id) do
                 render(conn, "response.json", response: "Already reacted")
               else
-                ets_insert({content_id, Map.put(content_reactions, reaction_type, [user_id | users])})
+                ets_insert(
+                  {content_id, Map.put(content_reactions, reaction_type, [user_id | users])}
+                )
+
                 render(conn, "response.json", response: "Reaction added")
               end
 
@@ -44,10 +52,10 @@ defmodule ReactionsServiceWeb.ReactionController do
               ets_insert({content_id, Map.put(content_reactions, reaction_type, [user_id])})
               render(conn, "response.json", response: "Reaction added")
 
-            "remove" -> render(conn, "response.json", response: "Reaction does not exist")
+            "remove" ->
+              render(conn, "response.json", response: "Reaction does not exist")
           end
         end
-
     end
   end
 
@@ -56,7 +64,11 @@ defmodule ReactionsServiceWeb.ReactionController do
     case ets_lookup(content_id) do
       {content_id, content_reactions} ->
         counts = Enum.map(content_reactions, fn {k, v} -> {k, length(v)} end)
-        render(conn, "reactions_count.json", %{content_id: content_id, counts: Enum.into(counts, %{})})
+
+        render(conn, "reactions_count.json", %{
+          content_id: content_id,
+          counts: Enum.into(counts, %{})
+        })
 
       :none ->
         render(conn, ErrorView, "404.json")
@@ -73,5 +85,4 @@ defmodule ReactionsServiceWeb.ReactionController do
   defp ets_insert(reactions_data) do
     :ets.insert(:reactions_table, reactions_data)
   end
-
 end

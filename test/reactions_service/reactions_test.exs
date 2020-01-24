@@ -6,8 +6,20 @@ defmodule ReactionsService.ReactionsTest do
   describe "reactions" do
     alias ReactionsService.Reactions.Reaction
 
-    @valid_attrs %{action: "some action", content_id: "some content_id", reaction_type: "some reaction_type", type: "some type", user_id: "some user_id"}
-    @update_attrs %{action: "some updated action", content_id: "some updated content_id", reaction_type: "some updated reaction_type", type: "some updated type", user_id: "some updated user_id"}
+    @valid_attrs %{
+      action: "some action",
+      content_id: "some content_id",
+      reaction_type: "some reaction_type",
+      type: "some type",
+      user_id: "some user_id"
+    }
+    @update_attrs %{
+      action: "some updated action",
+      content_id: "some updated content_id",
+      reaction_type: "some updated reaction_type",
+      type: "some updated type",
+      user_id: "some updated user_id"
+    }
     @invalid_attrs %{action: nil, content_id: nil, reaction_type: nil, type: nil, user_id: nil}
 
     def reaction_fixture(attrs \\ %{}) do

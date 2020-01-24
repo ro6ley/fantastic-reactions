@@ -62,7 +62,10 @@ defmodule ReactionsServiceWeb.ReactionControllerTest do
   describe "update reaction" do
     setup [:create_reaction]
 
-    test "renders reaction when data is valid", %{conn: conn, reaction: %Reaction{id: id} = reaction} do
+    test "renders reaction when data is valid", %{
+      conn: conn,
+      reaction: %Reaction{id: id} = reaction
+    } do
       conn = put(conn, Routes.reaction_path(conn, :update, reaction), reaction: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 

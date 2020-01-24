@@ -11,12 +11,14 @@ defmodule ReactionsServiceWeb.ReactionView do
   end
 
   def render("reaction.json", %{reaction: reaction}) do
-    %{id: reaction.id,
+    %{
+      id: reaction.id,
       type: reaction.type,
       action: reaction.action,
       content_id: reaction.content_id,
       user_id: reaction.user_id,
-      reaction_type: reaction.reaction_type}
+      reaction_type: reaction.reaction_type
+    }
   end
 
   def render("reactions_count.json", counts_data) do

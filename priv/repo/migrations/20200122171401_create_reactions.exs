@@ -11,6 +11,5 @@ defmodule ReactionsService.Repo.Migrations.CreateReactions do
 
       timestamps()
     end
-
   end
 end
