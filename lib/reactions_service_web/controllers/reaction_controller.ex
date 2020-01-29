@@ -12,7 +12,7 @@ defmodule ReactionsServiceWeb.ReactionController do
         "type" => _type,
         "user_id" => user_id
       }) do
-    # check if the content has exisiting reactions
+    # check if the content has exisiting reactions in the ETS Table
     case ets_lookup(content_id) do
       :none ->
         ets_insert({content_id, %{reaction_type => [user_id]}})
